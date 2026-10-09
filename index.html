@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini POS - Kasir Kantin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Spline+Sans+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="masthead">
+    <h1>Kasir kantin</h1>
+    <p>Mini POS untuk kantin kampus</p>
+  </header>
+
+  <main class="page">
+    <div class="counter">
+      <section aria-labelledby="judul-form">
+        <h2 id="judul-form">Tambah barang</h2>
+        <form id="form-barang" novalidate>
+          <div class="field">
+            <label for="nama">Nama barang</label>
+            <input type="text" id="nama" placeholder="Buku tulis" autocomplete="off">
+            <small class="error" id="error-nama"></small>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="harga">Harga satuan (Rp)</label>
+              <input type="number" id="harga" placeholder="3500" step="any" inputmode="numeric">
+              <small class="error" id="error-harga"></small>
+            </div>
+            <div class="field">
+              <label for="qty">Jumlah</label>
+              <input type="number" id="qty" placeholder="1" step="1" inputmode="numeric">
+              <small class="error" id="error-qty"></small>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Tambah ke struk</button>
+        </form>
+      </section>
+
+      <section aria-labelledby="judul-bayar" class="payment">
+        <h2 id="judul-bayar">Pembayaran</h2>
+
+        <div class="field">
+          <label for="kupon">Kode promo</label>
+          <input type="text" id="kupon" placeholder="HEMAT10" autocomplete="off">
+          <small id="info-diskon" class="hint"></small>
+        </div>
+
+        <div class="field">
+          <label for="bayar">Uang bayar (Rp)</label>
+          <input type="number" id="bayar" placeholder="20000" min="0" inputmode="numeric">
+        </div>
+
+        <div class="change">
+          <span>Kembalian</span>
+          <strong id="kembalian">Rp 0</strong>
+        </div>
+        <p id="info-bayar" class="payment-info"></p>
+
+        <button type="button" id="btn-reset" class="btn btn-outline">Transaksi baru</button>
+      </section>
+    </div>
+
+    <section class="receipt" aria-labelledby="judul-keranjang">
+      <header class="receipt-head">
+        <h2 id="judul-keranjang">Kantin kampus</h2>
+        <p id="tanggal-struk"></p>
+      </header>
+
+      <div class="table-wrapper">
+        <table id="tabel-keranjang">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama barang</th>
+              <th class="num">Harga satuan</th>
+              <th class="num">Qty</th>
+              <th class="num">Subtotal</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="isi-keranjang"></tbody>
+        </table>
+      </div>
+
+      <div class="totals">
+        <div class="total-row">
+          <span>Total belanja</span>
+          <strong id="total-belanja">Rp 0</strong>
+        </div>
+        <div class="total-row">
+          <span>Diskon</span>
+          <strong id="nominal-diskon" class="diskon">- Rp 0</strong>
+        </div>
+        <div class="total-row total-akhir">
+          <span>Total akhir</span>
+          <strong id="total-akhir">Rp 0</strong>
+        </div>
+      </div>
+
+      <p class="receipt-foot">Terima kasih sudah jajan di kantin.</p>
+    </section>
+  </main>
+
+  <footer class="app-footer"></footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
