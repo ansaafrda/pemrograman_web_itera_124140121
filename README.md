@@ -31,13 +31,13 @@ Aplikasi kasir berbasis web yang dirancang untuk kantin kampus. Kasir dapat mema
 
 **Form input utama**
 
-![Form input utama](./screenshots/form-input.png)
+![Form input utama](screenshots/form-input.png)
 
 **Validasi error**
 
-![Validasi error](./screenshots/validasi-error-1.png)
-![Validasi error](./screenshots/validasi-error-2.png)
-![Validasi error](./screenshots/validasi-error-3.png)
+![Validasi error](screenshots/validasi-error-1.png)
+![Validasi error](screenshots/validasi-error-2.png)
+![Validasi error](screenshots/validasi-error-3.png)
 
 **Hasil perhitungan dan tabel keranjang**
 
