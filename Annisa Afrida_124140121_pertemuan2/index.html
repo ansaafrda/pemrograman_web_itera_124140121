@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f6fb">
+  <meta name="description" content="Dashboard mahasiswa untuk mengatur tugas kuliah dan progres belajar.">
+  <title>Ruang Belajar — Dashboard Mahasiswa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="today-label">HARI INI</p>
+          <p class="topbar-date" id="today-date"></p>
+        </div>
+        <button class="button button-primary" id="add-task-button" type="button">
+          <span aria-hidden="true">＋</span> Tambah tugas
+        </button>
+      </header>
+
+      <section class="welcome-row" aria-labelledby="welcome-title">
+        <div>
+          <p class="eyebrow accent-eyebrow">DASHBOARD MAHASISWA</p>
+          <h1 id="welcome-title">Halo, Annisa <span aria-hidden="true">✦</span></h1>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Ringkasan tugas">
+        <article class="stat-card stat-total">
+          <div class="stat-top"><span>Total tugas</span><span class="stat-icon" aria-hidden="true">▤</span></div>
+          <strong class="stat-number" id="stat-total">0</strong>
+          <span class="stat-caption">yang sudah kamu catat</span>
+        </article>
+        <article class="stat-card stat-active">
+          <div class="stat-top"><span>Perlu dikerjakan</span><span class="stat-icon" aria-hidden="true">◷</span></div>
+          <strong class="stat-number" id="stat-active">0</strong>
+          <span class="stat-caption">masih menunggu progresmu</span>
+        </article>
+        <article class="stat-card stat-done">
+          <div class="stat-top"><span>Selesai</span><span class="stat-icon" aria-hidden="true">✓</span></div>
+          <strong class="stat-number" id="stat-done">0</strong>
+          <span class="stat-caption">langkah baik yang tercapai</span>
+        </article>
+      </section>
+
+      <section class="workspace" id="task-list" aria-labelledby="tasks-heading">
+        <div class="tasks-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">WORKSPACE</p>
+              <h2 id="tasks-heading">Daftar tugas</h2>
+            </div>
+            <label class="search-box">
+              <span aria-hidden="true">⌕</span>
+              <input id="task-search" type="search" placeholder="Cari tugas…" aria-label="Cari tugas">
+            </label>
+          </div>
+
+          <div class="filter-row" role="group" aria-label="Filter tugas">
+            <button class="filter-button is-selected" type="button" data-filter="all" aria-pressed="true">Semua <span id="filter-all-count">0</span></button>
+            <button class="filter-button" type="button" data-filter="active" aria-pressed="false">Berjalan <span id="filter-active-count">0</span></button>
+            <button class="filter-button" type="button" data-filter="completed" aria-pressed="false">Selesai <span id="filter-completed-count">0</span></button>
+          </div>
+
+          <div class="task-list" id="task-container" aria-live="polite"></div>
+        </div>
+
+        <aside class="side-panel" aria-label="Penyimpanan lokal">
+          <div class="storage-note">
+            <span class="storage-icon" aria-hidden="true">⌑</span>
+            <div><strong>Datamu tersimpan di sini</strong><p>Tugas disimpan lokal di browser ini.</p></div>
+          </div>
+        </aside>
+      </section>
+
+    </main>
+  </div>
+
+  <dialog class="task-dialog" id="task-dialog" aria-labelledby="dialog-title">
+    <form class="task-form" id="task-form">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">RUANG BELAJAR</p><h2 id="dialog-title">Tambah tugas</h2></div>
+        <button class="dialog-close" id="close-dialog" type="button" aria-label="Tutup">×</button>
+      </div>
+      <input id="task-id" name="id" type="hidden">
+      <label class="form-field" for="task-title">Nama tugas <span>*</span>
+        <input id="task-title" name="title" type="text" maxlength="100" placeholder="Contoh: Rangkuman materi ES6" required>
+      </label>
+      <div class="form-row">
+        <label class="form-field" for="task-course">Mata kuliah <span>*</span>
+          <input id="task-course" name="course" type="text" maxlength="50" placeholder="Contoh: PAW" required>
+        </label>
+        <label class="form-field" for="task-due-date">Tenggat <span>*</span>
+          <input id="task-due-date" name="dueDate" type="date" required>
+        </label>
+      </div>
+      <label class="form-field" for="task-priority">Prioritas
+        <select id="task-priority" name="priority">
+          <option value="normal">Santai</option>
+          <option value="medium">Penting</option>
+          <option value="high">Mendesak</option>
+        </select>
+      </label>
+      <label class="form-field" for="task-notes">Catatan <span class="optional-label">opsional</span>
+        <textarea id="task-notes" name="notes" rows="3" maxlength="240" placeholder="Tambahkan detail kecil agar tidak terlupa…"></textarea>
+      </label>
+      <p class="form-error" id="form-error" role="alert"></p>
+      <div class="dialog-actions">
+        <button class="button button-quiet" id="cancel-dialog" type="button">Batal</button>
+        <button class="button button-primary" type="submit" id="save-task-button">Simpan tugas</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
