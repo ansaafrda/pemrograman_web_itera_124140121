@@ -1,0 +1,2 @@
+/* Gaya khusus daftar buku: grid kartu dengan jarak antar kartu. */
+.book-list { display: grid; gap: 12px; }

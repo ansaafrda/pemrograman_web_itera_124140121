@@ -1,0 +1,2 @@
+/* Layout halaman Beranda: dua kolom (form | daftar) yang jadi satu kolom di layar sempit. */
+.home-grid { align-items: start; }
