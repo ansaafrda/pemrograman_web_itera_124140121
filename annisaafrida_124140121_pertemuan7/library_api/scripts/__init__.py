@@ -1,0 +1,1 @@
+"""Paket script console."""
