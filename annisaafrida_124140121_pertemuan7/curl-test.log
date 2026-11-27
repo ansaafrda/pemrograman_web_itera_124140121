@@ -1,0 +1,43 @@
+$ curl -s http://localhost:6544/api/v1/books
+{"books": [{"id": 1, "author_id": 1, "title": "Laskar Pelangi", "isbn": "9789793062792", "price": 89000.0, "stock": 12, "author_name": "Andrea Hirata", "created_at": "2026-11-27T00:36:48.224086+00:00", "updated_at": "2026-11-27T00:36:48.224090+00:00"}, {"id": 2, "author_id": 1, "title": "Sang Pemimpi", "isbn": "9789791227401", "price": 75000.0, "stock": 8, "author_name": "Andrea Hirata", "created_at": "2026-11-27T00:36:48.224092+00:00", "updated_at": "2026-11-27T00:36:48.224092+00:00"}, {"id": 3, "author_id": 2, "title": "Bumi", "isbn": "9786020329375", "price": 69000.0, "stock": 15, "author_name": "Tere Liye", "created_at": "2026-11-27T00:36:48.224094+00:00", "updated_at": "2026-11-27T00:36:48.224094+00:00"}]}
+HTTP 200
+
+$ curl -s http://localhost:6544/api/v1/authors
+{"authors": [{"id": 1, "name": "Andrea Hirata", "bio": "Penulis Indonesia, dikenal lewat novel Laskar Pelangi.", "created_at": "2026-11-27T00:36:48.219146+00:00", "updated_at": "2026-11-27T00:36:48.219152+00:00"}, {"id": 2, "name": "Tere Liye", "bio": "Penulis Indonesia dengan banyak novel populer.", "created_at": "2026-11-27T00:36:48.219155+00:00", "updated_at": "2026-11-27T00:36:48.219156+00:00"}]}
+HTTP 200
+
+$ curl -s -X POST /api/v1/authors (Penulis Uji Curl)
+{"success": true, "author": {"id": 3, "name": "Penulis Uji Curl", "bio": "Ditambah lewat curl.", "created_at": "2026-11-27T00:37:20.304575+00:00", "updated_at": "2026-11-27T00:37:20.304580+00:00"}}
+HTTP 201
+
+$ curl -s -X POST /api/v1/books (Buku Uji Curl)
+{"success": true, "book": {"id": 4, "author_id": 3, "title": "Buku Uji Curl", "isbn": "9786020000001", "price": 55000.0, "stock": 7, "author_name": "Penulis Uji Curl", "created_at": "2026-11-27T00:37:20.335226+00:00", "updated_at": "2026-11-27T00:37:20.335231+00:00"}}
+HTTP 201
+
+$ curl -s http://localhost:6544/api/v1/books/4
+{"book": {"id": 4, "author_id": 3, "title": "Buku Uji Curl", "isbn": "9786020000001", "price": 55000.0, "stock": 7, "author_name": "Penulis Uji Curl", "created_at": "2026-11-27T00:37:20.335226+00:00", "updated_at": "2026-11-27T00:37:20.335231+00:00"}}
+HTTP 200
+
+$ curl -s -X PUT /api/v1/books/4 (stok 7 -> 20)
+{"success": true, "book": {"id": 4, "author_id": 3, "title": "Buku Uji Curl", "isbn": "9786020000001", "price": 55000.0, "stock": 20, "author_name": "Penulis Uji Curl", "created_at": "2026-11-27T00:37:20.335226+00:00", "updated_at": "2026-11-27T00:37:20.449867+00:00"}}
+HTTP 200
+
+$ curl -s -X POST /api/v1/books (ISBN duplikat)
+{"error":"ISBN 9786020000001 sudah terdaftar pada buku lain"}
+HTTP 400
+
+$ curl -s -X POST /api/v1/books (validasi: tanpa ISBN)
+{"error":"Validasi gagal","messages":{"isbn":["Missing data for required field."]}}
+HTTP 400
+
+$ curl -s http://localhost:6544/api/v1/books/99999
+{"error":"Buku dengan id 99999 tidak ditemukan"}
+HTTP 404
+
+$ curl -s -X DELETE /api/v1/books/4
+{"success": true, "message": "Buku dengan id 4 berhasil dihapus"}
+HTTP 200
+
+$ curl -s http://localhost:6544/api/v1/books/4 (setelah dihapus)
+{"error":"Buku dengan id 4 tidak ditemukan"}
+HTTP 404
